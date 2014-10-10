@@ -1,8 +1,8 @@
 #!/bin/bash
 
 REPOBASE=`pwd`
-DATA=$REPOBASE/data
-TMP=$REPOBASE/tmp
+export DATA=$REPOBASE/data/
+export TMP=$REPOBASE/tmp/
 if [ ! -d "$TMP" ]; then
     mkdir $TMP
 fi
