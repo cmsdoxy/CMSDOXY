@@ -1,3 +1,5 @@
+# aaltunda- ali.mehmet.altundag@cern.ch
+
 import os, sys, re
 import tools.url, tools.fileOps
 try: import json
@@ -28,7 +30,7 @@ def isDocNeeded(relName):
 class CMSSW:
     def __init__(self, name = None, arch = None, type = None,
                  state = None):
-        self.name     = name
+        self.name     = name.strip()
         self.arch     = arch
         self.type     = type
         self.state    = state
