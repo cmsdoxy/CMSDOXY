@@ -42,6 +42,7 @@ class CMSSW:
         if b.name == self.name: return True
         return False
 
+# please see the related xml file structure
 cmsswArray = []
 for archNode in cmssw.findall('architecture'):
     arch = archNode.attrib['name']
@@ -51,6 +52,7 @@ for archNode in cmssw.findall('architecture'):
         state = projectNode.attrib['state']
         cmsswArray.append(CMSSW(name, arch, type, state))
 
+# please see the related xml file structure
 cmsswDocArray = []
 for projectNode in docCMSSW.findall('project'):
     name =  projectNode.attrib['label']
