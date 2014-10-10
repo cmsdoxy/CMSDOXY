@@ -67,4 +67,5 @@ for i in cmsswArray:
     # documentation for this special release. In that case, you will
     # need to generate it by hand.
     if not i in cmsswDocArray and isDocNeeded(i.name):
-        print i
+        # make it easy to parse
+        print '%s\t%s' % (i.arch, i.name)
