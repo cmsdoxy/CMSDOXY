@@ -1,0 +1,4 @@
+*.pyc
+*.tmp
+*_.xml
+tmp/*
