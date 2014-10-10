@@ -1,5 +1,6 @@
 #!/bin/bash
 
-BASE=`pwd`
-DATA=$BASE/'data'
-export PYTHONPATH="$PYTHONPATH:$BASE"
+REPOBASE=`pwd`
+DATA=$REPOBASE/data
+TMP=$REPOBASE/tmp
+export PYTHONPATH="$PYTHONPATH:$REPOBASE"
