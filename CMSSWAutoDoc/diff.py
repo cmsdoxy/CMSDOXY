@@ -7,15 +7,11 @@ except ImportError: import simplejson as json
 try: import xml.etree.ElementTree as ET
 except ImportError: from elementtree import ElementTree as ET
 
-if (not 'DATA' in os.environ) or (not 'TMP' in os.environ):
-    print >> sys.stderr, 'ERROR: TMP and DATA variables could not be found. (do you forget the source init.sh?)'
-    sys.exit(1)
-
-pathData = os.environ['DATA'] + '%s'
-pathtmp  = os.environ['TMP']  + '%s'
+if len(sys.argv) < 1:
+    print >> sys.stderr, 'ERROR: config file couldn\'t be found.'
 
 # read the config file and parse it
-conf     = json.loads(tools.fileOps.read(pathData % "CMSSWAutoDoc/conf.json", printFlag = False))
+conf     = json.loads(tools.fileOps.read(sys.argv[1]))
 
 # get list of announced cmssw releases and parse it
 cmssw    = ET.fromstring(tools.url.read(conf['urlRelList']))
@@ -62,6 +58,7 @@ for projectNode in docCMSSW.findall('project'):
     if projectNode.attrib['url'] != '':
         cmsswDocArray.append(CMSSW(name = name))
 
+diff = {}
 for i in cmsswArray:
     # print undocumented relaease if it is matching with the pattern
     # this patter is used for skipping special releases which we don't
@@ -70,4 +67,6 @@ for i in cmsswArray:
     # need to generate it by hand.
     if not i in cmsswDocArray and isDocNeeded(i.name):
         # make it easy to parse
-        print '%s\t%s' % (i.arch, i.name)
+        diff[i.name] = {'status' : 'undocumented', 'arch':i.arch}
+
+print json.dumps(diff, indent=2)
