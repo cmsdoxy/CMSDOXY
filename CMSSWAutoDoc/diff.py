@@ -10,6 +10,7 @@ except ImportError: from elementtree import ElementTree as ET
 # Input: config file, input, output
 if len(sys.argv) < 2:
     print >> sys.stderr, 'ERROR: config file couldn\'t be found.'
+    sys.exit(1)
 
 # read the config file and parse it
 conf     = json.loads(tools.fileOps.read(sys.argv[1]))
@@ -86,3 +87,5 @@ for i in diff:
 out = json.dumps(oldDiff, indent=2)
 print out
 tools.fileOps.write(sys.argv[2], out)
+
+sys.exit(0)
