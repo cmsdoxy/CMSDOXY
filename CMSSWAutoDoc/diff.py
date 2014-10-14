@@ -1,5 +1,7 @@
 # aaltunda- ali.mehmet.altundag@cern.ch
 
+# this script generates list of undocumented CMSSW releases.
+
 import os, sys, re
 import tools.url, tools.fileOps
 try: import json
@@ -7,7 +9,7 @@ except ImportError: import simplejson as json
 try: import xml.etree.ElementTree as ET
 except ImportError: from elementtree import ElementTree as ET
 
-# Input: config file, input/output file
+# input: config file, input/output file
 if len(sys.argv) < 2:
     print >> sys.stderr, 'ERROR: not enough parameters.'
     sys.exit(1)
