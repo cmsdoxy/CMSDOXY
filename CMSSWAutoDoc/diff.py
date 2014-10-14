@@ -62,7 +62,7 @@ for projectNode in docCMSSW.findall('project'):
 
 diff = {}
 for i in cmsswArray:
-    # append undocumented relaease if it is matching with the pattern
+    # append the undocumented relaease if it is matching with the pattern
     # this patter is used for skipping special releases which we don't
     # need to document. Note that, someone might want you to generate
     # documentation for this special release. In that case, you will
