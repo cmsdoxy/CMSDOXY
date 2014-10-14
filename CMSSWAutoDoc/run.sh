@@ -16,4 +16,10 @@ if [ ! -d "$LOG_PATH" ]; then
 fi
 
 echo "## outputs of the diff tool" >> $LOG
-python diff.py $CONFIG $IOFILE >> $LOG
+python diff.py $CONFIG $IOFILE >> $LOG 2>&1
+
+EXIT_CODE=$(echo $?)
+if [ "$EXIT_CODE" -ne 0 ]; then
+    echo "ERROR: diff tool didn't return zero." >> $LOG 2>&1
+    exit 1
+fi
