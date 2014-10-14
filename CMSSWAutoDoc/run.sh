@@ -7,7 +7,7 @@ cd $BASE
 
 NAME=CMSSWAutoDoc
 CONFIG=$DATA/$NAME/conf.json
-OUTPUT=$TMP/cmsswRels2Doc.json
+IOFILE=$TMP/cmsswRels2Doc.json
 LOG_PATH=$LOGS/$NAME
 LOG=$LOG_PATH/$(date +%Y%m%d_%H%M).log
 
@@ -16,4 +16,4 @@ if [ ! -d "$LOG_PATH" ]; then
 fi
 
 echo "## outputs of the diff tool" >> $LOG
-python $CONFIG diff.py $DATA/| tee $LOG $OUTPUT
+python diff.py $CONFIG $IOFILE >> $LOG

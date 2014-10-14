@@ -7,7 +7,8 @@ except ImportError: import simplejson as json
 try: import xml.etree.ElementTree as ET
 except ImportError: from elementtree import ElementTree as ET
 
-if len(sys.argv) < 1:
+# Input: config file, input, output
+if len(sys.argv) < 2:
     print >> sys.stderr, 'ERROR: config file couldn\'t be found.'
 
 # read the config file and parse it
@@ -60,7 +61,7 @@ for projectNode in docCMSSW.findall('project'):
 
 diff = {}
 for i in cmsswArray:
-    # print undocumented relaease if it is matching with the pattern
+    # append undocumented relaease if it is matching with the pattern
     # this patter is used for skipping special releases which we don't
     # need to document. Note that, someone might want you to generate
     # documentation for this special release. In that case, you will
@@ -69,4 +70,19 @@ for i in cmsswArray:
         # make it easy to parse
         diff[i.name] = {'status' : 'undocumented', 'arch':i.arch}
 
-print json.dumps(diff, indent=2)
+try:
+    # try to read & parse input file which is old diff file
+    oldDiff = json.loads(tools.fileOps.read(sys.argv[2]))
+except IOError:
+    # file not found, that means this is the first time
+    # that the script has been run
+    oldDiff = {}
+
+# update the diff file
+for i in diff:
+    if not i in oldDiff: oldDiff[i] = diff[i]
+
+# updated diff
+out = json.dumps(oldDiff, indent=2)
+print out
+tools.fileOps.write(sys.argv[2], out)
