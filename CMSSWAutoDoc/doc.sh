@@ -32,10 +32,11 @@ cd src/
 git checkout $REL
 cd ..
 
-# run the documentation
 
 # clean up the base
 cd $TMP/$REL
-#rm -rf 
+rm -rf biglib/ bin/ cfipython/ config/ include/ lib/ logs/ objs/ python/ src/ test/ tmp/
+gzip -r -S gz doc/
+echo 'auto-generated' > out.txt
 
 cd $WORK_DIR
