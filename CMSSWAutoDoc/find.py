@@ -1,4 +1,4 @@
-# aaltunda -ali.mehmet.altundag@cern.ch
+# aaltunda - ali.mehmet.altundag@cern.ch
 
 # this script finds an available release to generate ref man for it.
 # please note that the output of the script should be printed and 
