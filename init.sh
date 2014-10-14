@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOBASE=`pwd`
+REPOBASE=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 export DATA=$REPOBASE/data/
 export LOGS=$REPOBASE/logs
 export TMP=$REPOBASE/tmp/
