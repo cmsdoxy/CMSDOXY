@@ -14,6 +14,10 @@ BASE=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 cd $BASE
 source init.sh
 
+python semaphore.py $IOFILE $REL "documenting.."
+checkError "$IOFILE could not be updated."
+
+
 OUTPUT=$(python find.py $IOFILE "undocumented")
 checkError "find.py didn't return zero."
 
@@ -52,22 +56,22 @@ cd src/
 git checkout $REL
 cd ..
 
-python semaphore.py $IOFILE $REL "documenting.."
-checkError "$IOFILE could not be updated."
 ######## HARD CODED DOCKIT SECTION ########
 cp -r /afs/cern.ch/work/c/cmsdoxy/DocKit .
 cd DocKit/scripts
 tcsh generate_reference_manual
 # add check point here!
 ######## HARD CODED DOCKIT SECTION ########
-python semaphore.py $IOFILE $REL "documented"
-checkError "$IOFILE could not be updated."
 
 # clean up the base
 cd $TMP/$REL
 rm -rf biglib/ bin/ cfipython/ config/ include/ lib/ logs/ objs/ python/ src/ test/ tmp/ DocKit/
 gzip -r -S gz doc/
 echo 'auto-generated' > out.txt
+
+cd $BASE
+python semaphore.py $IOFILE $REL "documented"
+checkError "$IOFILE could not be updated."
 
 cd $WORK_DIR
 
