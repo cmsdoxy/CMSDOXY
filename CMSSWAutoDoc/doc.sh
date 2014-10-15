@@ -58,7 +58,8 @@ cd ..
 ######## HARD CODED DOCKIT SECTION ########
 cp -r /afs/cern.ch/work/c/cmsdoxy/DocKit .
 cd DocKit/scripts
-tcsh generate_reference_manual
+# shut up!
+tcsh generate_reference_manual > /dev/null
 # add check point here!
 ######## HARD CODED DOCKIT SECTION ########
 
