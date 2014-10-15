@@ -14,7 +14,7 @@ BASE=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 cd $BASE
 source init.sh
 
-OUTPUT=$(python find.py $IOFILE)
+OUTPUT=$(python find.py $IOFILE "undocumented")
 checkError "find.py didn't return zero."
 
 if [ "-" == "$OUTPUT" ]; then
@@ -52,11 +52,16 @@ cd src/
 git checkout $REL
 cd ..
 
+python semaphore.py $IOFILE $REL "documenting.."
+checkError "$IOFILE could not be updated."
 ######## HARD CODED DOCKIT SECTION ########
 cp -r /afs/cern.ch/work/c/cmsdoxy/DocKit .
 cd DocKit/scripts
-source generate_reference_manual 
+tcsh generate_reference_manual
+# add check point here!
 ######## HARD CODED DOCKIT SECTION ########
+python semaphore.py $IOFILE $REL "documented"
+checkError "$IOFILE could not be updated."
 
 # clean up the base
 cd $TMP/$REL

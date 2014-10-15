@@ -8,8 +8,8 @@ import sys, tools.fileOps
 try: import json
 except ImportError: import simplejson as json
 
-# input: releases list
-if len(sys.argv) < 2:
+# input: releases list, label to find
+if len(sys.argv) < 3:
     print >> sys.stderr, 'Error: not enough parameters.'
     sys.exit(1)
 
@@ -23,7 +23,7 @@ keys = rels2Doc.keys()
 keys.sort(reverse = True)
 
 for i in keys:
-    if rels2Doc[i]['status'] == 'undocumented':
+    if rels2Doc[i]['status'] == sys.argv[2]:
         print i, rels2Doc[i]['arch']
         sys.exit(0)
 
