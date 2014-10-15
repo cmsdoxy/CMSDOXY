@@ -5,13 +5,17 @@ BASE=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 cd $BASE
 source init.sh
 
-echo $TMP
-
 OUTPUT=$(python find.py $IOFILE)
+if [ $(echo $?) -ne 0 ]; then
+    echo "ERROR: find.py didn't return zero."
+    exit 1
+fi
+# get version of the CMSSW
 REL=$(echo $OUTPUT | cut -f 1 -d ' ')
+# get destination architexture
 ARCH=$(echo $OUTPUT | cut -f 2 -d ' ')
 
-echo "Documenting $REL ($ARCH)..." #>> $LOG
+echo "Documenting $REL ($ARCH)..."
 
 # set the architecture
 export SCRAM_ARCH=$ARCH
