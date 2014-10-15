@@ -11,7 +11,7 @@ except ImportError: from elementtree import ElementTree as ET
 
 # input: config file, input/output file
 if len(sys.argv) < 2:
-    print >> sys.stderr, 'ERROR: not enough parameters.'
+    print >> sys.stderr, 'Error: not enough parameters.'
     sys.exit(1)
 
 # read the config file and parse it
