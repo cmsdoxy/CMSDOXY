@@ -9,12 +9,12 @@ try: import json
 except ImportError: import simplejson as json
 
 # input: releases list
-if len(sys.argv) < 1:
-    print >> sys.stderr, 'ERROR: not enough parameters.'
+if len(sys.argv) < 2:
+    print >> sys.stderr, 'Error: not enough parameters.'
     sys.exit(1)
 
 # read release list to find one to document
-rels2Doc = json.loads(tools.fileOps.read(sys.argv[1], printFlag = False))
+rels2Doc = json.loads(tools.fileOps.read(sys.argv[1]))
 
 # get keys to sort them
 keys = rels2Doc.keys()
