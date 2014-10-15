@@ -15,3 +15,6 @@ if [ "$EXIT_CODE" -ne 0 ]; then
 fi
 
 cd $WORK_DIR
+
+echo "## $IOFILE has been created."
+echo ""

@@ -54,3 +54,6 @@ gzip -r -S gz doc/
 echo 'auto-generated' > out.txt
 
 cd $WORK_DIR
+
+echo "## document for $REL has been created."
+echo ""
