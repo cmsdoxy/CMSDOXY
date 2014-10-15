@@ -26,3 +26,5 @@ for i in keys:
     if rels2Doc[i]['status'] == 'undocumented':
         print i, rels2Doc[i]['arch']
         sys.exit(0)
+
+print "-"

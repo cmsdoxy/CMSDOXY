@@ -17,6 +17,12 @@ source init.sh
 OUTPUT=$(python find.py $IOFILE)
 checkError "find.py didn't return zero."
 
+if [ "-" == "$OUTPUT" ]; then
+    echo "## nothing to document... Cool huh?"
+    echo ""
+    exit 0
+fi
+
 # get version of the CMSSW
 REL=$(echo $OUTPUT | cut -f 1 -d ' ')
 # get destination architexture
