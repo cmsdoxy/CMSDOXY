@@ -52,10 +52,15 @@ cd src/
 git checkout $REL
 cd ..
 
+######## HARD CODED DOCKIT SECTION ########
+cp -r /afs/cern.ch/work/c/cmsdoxy/DocKit .
+cd DocKit/scripts
+source generate_reference_manual 
+######## HARD CODED DOCKIT SECTION ########
 
 # clean up the base
 cd $TMP/$REL
-rm -rf biglib/ bin/ cfipython/ config/ include/ lib/ logs/ objs/ python/ src/ test/ tmp/
+rm -rf biglib/ bin/ cfipython/ config/ include/ lib/ logs/ objs/ python/ src/ test/ tmp/ DocKit/
 gzip -r -S gz doc/
 echo 'auto-generated' > out.txt
 
