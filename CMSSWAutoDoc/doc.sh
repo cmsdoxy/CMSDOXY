@@ -14,10 +14,6 @@ BASE=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 cd $BASE
 source init.sh
 
-python semaphore.py $IOFILE $REL "documenting.."
-checkError "$IOFILE could not be updated."
-
-
 OUTPUT=$(python find.py $IOFILE "undocumented")
 checkError "find.py didn't return zero."
 
@@ -31,6 +27,9 @@ fi
 REL=$(echo $OUTPUT | cut -f 1 -d ' ')
 # get destination architexture
 ARCH=$(echo $OUTPUT | cut -f 2 -d ' ')
+
+python semaphore.py $IOFILE $REL "documenting.."
+checkError "$IOFILE could not be updated."
 
 echo "Documenting $REL ($ARCH)..."
 
