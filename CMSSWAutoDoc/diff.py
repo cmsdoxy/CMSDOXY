@@ -10,7 +10,7 @@ try: import xml.etree.ElementTree as ET
 except ImportError: from elementtree import ElementTree as ET
 
 # input: config file, input/output file
-if len(sys.argv) < 2:
+if len(sys.argv) < 3:
     print >> sys.stderr, 'Error: not enough parameters.'
     sys.exit(1)
 
