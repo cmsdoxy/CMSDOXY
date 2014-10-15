@@ -13,8 +13,9 @@ if len(sys.argv) < 2:
     print >> sys.stderr, 'Error: not enough parameters.'
     sys.exit(1)
 
-# read release list to find one to document
-rels2Doc = json.loads(tools.fileOps.read(sys.argv[1]))
+# read release list to find one to document. printFlag must be false,
+# otherwise the parser in the shell script will stop execution.
+rels2Doc = json.loads(tools.fileOps.read(sys.argv[1], printFlag = False))
 
 # get keys to sort them
 keys = rels2Doc.keys()
