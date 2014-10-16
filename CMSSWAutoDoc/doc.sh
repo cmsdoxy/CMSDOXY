@@ -70,7 +70,7 @@ tcsh generate_reference_manual > /dev/null
 cd $TMP/$REL
 rm -rf biglib/ bin/ cfipython/ config/ include/ lib/ logs/ objs/ python/ src/ test/ tmp/ DocKit/
 gzip -r -S gz doc/
-echo 'auto-generated' > auto.doc
+echo "generated on $(date)" > auto.doc
 
 cd $BASE
 python semaphore.py $IOFILE $REL "documented"
