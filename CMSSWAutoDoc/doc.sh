@@ -8,6 +8,9 @@ source /cvmfs/cms.cern.ch/cmsset_default.sh
 function checkError(){
     if [ $(echo $?) -ne 0 ]; then
         echo "ERROR: $1"
+        # try to unlock the release. you might get an error once again
+        # message if the caller error semaphore script based problem
+        python semaphore.py $IOFILE $REL "undocumented"
         exit 1
     fi
 }
@@ -31,7 +34,7 @@ REL=$(echo $OUTPUT | cut -f 1 -d ' ')
 # get destination architexture
 ARCH=$(echo $OUTPUT | cut -f 2 -d ' ')
 
-python semaphore.py $IOFILE $REL "documenting.."
+python semaphore.py $IOFILE $REL "documenting..."
 checkError "$IOFILE could not be updated."
 
 echo "Documenting $REL ($ARCH)..."
@@ -75,6 +78,11 @@ echo "generated on $(date)" > auto.doc
 cd $BASE
 python semaphore.py $IOFILE $REL "documented"
 checkError "$IOFILE could not be updated."
+
+# upload ref man files (hardcoded username & machine!)
+echo "## uploading files..."
+scp -r $TMP/$REL cmsdoxy@vocms12.cern.ch:/data/doxygen > /dev/null
+checkError "auto-generated documentation could not be uploaded."
 
 cd $WORK_DIR
 
