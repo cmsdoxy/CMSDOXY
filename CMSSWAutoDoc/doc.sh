@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# get the scram
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+
 # if you get negative (!=0) result from the last command,
 # print the error message and exit
 function checkError(){
