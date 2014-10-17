@@ -43,6 +43,11 @@ echo "Documenting $REL ($ARCH)..."
 export SCRAM_ARCH=$ARCH
 cd $TMP
 
+# delete old release direcroy in case of an unsuccessful doc process if exists
+if [ -d "$TMP/$REL" ]; then
+    rm -rf $TMP/$REL
+fi
+
 # create the CMSSW base
 #cmsrel $REL # huh?
 scramv1 project CMSSW $REL
