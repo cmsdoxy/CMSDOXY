@@ -10,7 +10,7 @@ function checkError(){
         echo "ERROR: $1"
         # try to unlock the release. you might get an error once again
         # message if the caller error semaphore script based problem
-        python semaphore.py $IOFILE $REL "undocumented"
+        python $BASE/semaphore.py $IOFILE $REL "undocumented"
         exit 1
     fi
 }
@@ -20,7 +20,7 @@ BASE=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 cd $BASE
 source init.sh
 
-OUTPUT=$(python find.py $IOFILE "undocumented")
+OUTPUT=$(python $BASE/find.py $IOFILE "undocumented")
 checkError "find.py didn't return zero."
 
 if [ "-" == "$OUTPUT" ]; then
@@ -34,7 +34,7 @@ REL=$(echo $OUTPUT | cut -f 1 -d ' ')
 # get destination architexture
 ARCH=$(echo $OUTPUT | cut -f 2 -d ' ')
 
-python semaphore.py $IOFILE $REL "documenting..."
+python $BASE/semaphore.py $IOFILE $REL "documenting..."
 checkError "$IOFILE could not be updated."
 
 echo "Documenting $REL ($ARCH)..."
@@ -64,8 +64,7 @@ cd ..
 ######## HARD CODED DOCKIT SECTION ########
 cp -r /afs/cern.ch/work/c/cmsdoxy/DocKit .
 cd DocKit/scripts
-# shut up!
-tcsh generate_reference_manual > /dev/null
+tcsh generate_reference_manual
 # add check point here!
 ######## HARD CODED DOCKIT SECTION ########
 
@@ -76,7 +75,7 @@ gzip -r -S gz doc/
 echo "generated on $(date)" > auto.doc
 
 cd $BASE
-python semaphore.py $IOFILE $REL "documented"
+python $BASE/semaphore.py $IOFILE $REL "documented"
 checkError "$IOFILE could not be updated."
 
 # upload ref man files (hardcoded username & machine!)
