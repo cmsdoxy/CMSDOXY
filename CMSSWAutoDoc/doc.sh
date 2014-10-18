@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "hostname: $(hostname)"
+echo "user:     $(whoami)"
+
 # get the scram
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
@@ -45,6 +48,7 @@ cd $TMP
 
 # delete old release direcroy in case of an unsuccessful doc process if exists
 if [ -d "$TMP/$REL" ]; then
+    echo "## I saw that the $REL is already there! I will delete it now."
     rm -rf $TMP/$REL
 fi
 
