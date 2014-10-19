@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "hostname: $(hostname)"
-echo "user:     $(whoami)"
-
 # get the scram
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
@@ -37,10 +34,12 @@ REL=$(echo $OUTPUT | cut -f 1 -d ' ')
 # get destination architexture
 ARCH=$(echo $OUTPUT | cut -f 2 -d ' ')
 
+echo "hostname: $(hostname)"
+echo "user:     $(whoami)"
+echo "Documenting $REL ($ARCH)..."
+
 python $BASE/semaphore.py $IOFILE $REL "documenting..."
 checkError "$IOFILE could not be updated."
-
-echo "Documenting $REL ($ARCH)..."
 
 # set the architecture
 export SCRAM_ARCH=$ARCH
