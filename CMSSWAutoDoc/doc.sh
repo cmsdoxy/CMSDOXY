@@ -34,9 +34,9 @@ REL=$(echo $OUTPUT | cut -f 1 -d ' ')
 # get destination architexture
 ARCH=$(echo $OUTPUT | cut -f 2 -d ' ')
 
-echo "hostname: $(hostname)"
-echo "user:     $(whoami)"
-echo "Documenting $REL ($ARCH)..."
+echo "## hostname: $(hostname)"
+echo "## user:     $(whoami)"
+echo "## Documenting $REL ($ARCH)..."
 
 python $BASE/semaphore.py $IOFILE $REL "documenting..."
 checkError "$IOFILE could not be updated."
@@ -55,7 +55,7 @@ fi
 #cmsrel $REL # huh?
 scramv1 project CMSSW $REL
 checkError "CMSSW could not be initialized properly."
-cd $REL
+cd $TMP/$REL
 
 # set the cms env
 #cmsenv # huh?
@@ -65,13 +65,13 @@ checkError "CMSSW environments could not be set."
 # clone CMSSW repo
 git clone https://github.com/cms-sw/cmssw.git src
 checkError "Repo could not be cloned."
-cd src/
+cd $TMP/$REL/src/
 git checkout $REL
-cd ..
+cd $TMP/$REL
 
 ######## HARD CODED DOCKIT SECTION ########
 cp -r /afs/cern.ch/work/c/cmsdoxy/DocKit .
-cd DocKit/scripts
+cd $TMP/$REL/DocKit/scripts
 tcsh generate_reference_manual
 # add check point here!
 ######## HARD CODED DOCKIT SECTION ########
