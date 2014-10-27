@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # get the scram
+shopt -s expand_aliases
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
 # if you get negative (!=0) result from the last command,
@@ -20,19 +21,19 @@ BASE=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 cd $BASE
 source init.sh
 
-OUTPUT=$(python $BASE/find.py $IOFILE "undocumented")
+RELEASE=$(python $BASE/find.py $IOFILE "undocumented")
 checkError "find.py didn't return zero."
 
-if [ "-" == "$OUTPUT" ]; then
+if [ "-" == "$RELEASE" ]; then
     echo "## nothing to document... Cool huh?"
     echo ""
     exit 0
 fi
 
 # get version of the CMSSW
-REL=$(echo $OUTPUT | cut -f 1 -d ' ')
+REL=$(echo $RELEASE | cut -f 1 -d ' ')
 # get destination architexture
-ARCH=$(echo $OUTPUT | cut -f 2 -d ' ')
+ARCH=$(echo $RELEASE | cut -f 2 -d ' ')
 
 echo "## hostname: $(hostname)"
 echo "## user:     $(whoami)"
@@ -52,14 +53,14 @@ if [ -d "$TMP/$REL" ]; then
 fi
 
 # create the CMSSW base
-#cmsrel $REL # huh?
-scramv1 project CMSSW $REL
+cmsrel $REL # huh?
+#scramv1 project CMSSW $REL
 checkError "CMSSW could not be initialized properly."
 cd $TMP/$REL
 
 # set the cms env
-#cmsenv # huh?
-eval `scramv1 runtime -sh`
+cmsenv # huh?
+#eval `scramv1 runtime -sh`
 checkError "CMSSW environments could not be set."
 
 # clone CMSSW repo
