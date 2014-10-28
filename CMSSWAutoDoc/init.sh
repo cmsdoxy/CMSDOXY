@@ -24,3 +24,15 @@ fi
 exec > >(tee -a "${LOG_PATH}/${LOG_DATE}.log")
 # capture stderr
 exec 2>&1
+
+# check for quota
+QUOTA=$(fs lq $BASE)
+QNAME=$(echo $QUOTA | cut -f 7 -d ' ')
+QRATE=$(echo $QUOTA | cut -f 10 -d ' ' | cut -d "%" -f1)
+echo "## Quota base: $BASE"
+echo "## Quota name: $QNAME"
+echo "## Quota rate: $QRATE"
+if [ $QRATE -gt "70" ]; then
+   echo "quota exceeded (threshold: 70%)!"
+   exit 1
+fi
