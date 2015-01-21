@@ -1,5 +1,5 @@
 {
-    "urlRelList" : "https://cmssdt.cern.ch/SDT/cgi-bin/ReleasesXML",
+    "urlRelList" : "https://cmssdt.cern.ch/SDT/cgi-bin/ReleasesXML?anytype=1",
     "urlDocList" : "https://cmssdt.cern.ch/SDT/doxygen/releases.php",
     "pattern"    : "^CMSSW_\\d+_\\d+_\\d+(_patch\\d+)?$"
 }
