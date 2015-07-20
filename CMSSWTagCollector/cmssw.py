@@ -9,6 +9,11 @@ Data['GITHUB_URL']       = 'https://github.com/cms-sw/cmssw/tree/%s' % Data['CMS
 
 CategoriesSource         = urllib2.urlopen('https://raw.github.com/cms-sw/cms-bot/master/categories.py').read()
 exec(CategoriesSource)
+Data['CMSSW_MAP']        = {'analysis':'Analysis', 'alca':'Calibration and Alignment', 'daq':'DAQ', 'core' : 'Core',
+                            'dqm':'DQM', 'db':'Database', 'docs':'Documentation', 'fastsim':'Fast Simulation',
+                            'simulation':'Full Simulation', 'generators':'Generators', 'geometry':'Geometry',
+                            'hlt':'HLT', 'l1':'L1', 'operations':'Operations', 'reconstruction':'Reconstruction',
+                            'visualization':'Visualization'}
 Data['CMSSW_L1']         = globals()['CMSSW_L1']
 Data['CMSSW_L2']         = globals()['CMSSW_L2']
 Data['CMSSW_CATEGORIES'] = globals()['CMSSW_CATEGORIES']
@@ -28,12 +33,95 @@ Data['TWIKI_PAGES']      = {'Analysis':'https://twiki.cern.ch/twiki/bin/view/CMS
                             'L1':'https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideL1Trigger',
                             'Reconstruction':'https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideReco',
                             'Visualization':'https://twiki.cern.ch/twiki/bin/view/CMS/SWGuideVisualization'}
-
-Data['CMSSW_MAP']        = {'analysis':'Analysis', 'alca':'Calibration and Alignment', 'daq':'DAQ',
-                            'dqm':'DQM', 'db':'Database', 'doc':'Documentation', 'fastsim':'Fast Simulation',
-                            'simulation':'Full Simulation', 'generators':'Generators', 'geometry':'Geometry',
-                            'hlt':'HLT', 'l1':'L1', 'operations':'Operations', 'reconstruction':'Reconstruction', 
-                            'visualization':'Visualization'}
+Data['PERSON_MAP']       = {'Analysis' : {
+                                'Gena Kukartsev'           : 'gennadiy.kukartsev@cern.ch',
+                                'Roger Wolf'               : 'Roger.Wolf@cern.ch',
+                                'Volker Adler'             : 'volker.adler@cern.ch'},
+                            'Calibration and Alignment'    : {
+                                'Andreas Pfeiffer'         : 'andreas.pfeiffer@cern.ch',
+                                'Roberto Castello'         : 'Roberto.Castello@cern.ch',
+                                'Gianluca Cerminara'       : 'gianluca.cerminara@cern.ch',
+                                'Marco De Mattia'          : 'Marco.De.Mattia@cern.ch',
+                                'Andreas Mussgiller'       : 'andreas.mussgiller@cern.ch',
+                                'Rainer Mankel'            : 'Rainer.Mankel@cern.ch'},
+                            'Core' : {
+                                'Christopher Jones'        : 'cdj@fnal.gov',
+                                'Peter Elmer'              : 'Peter.Elmer@cern.ch',
+                                'Giulio Eulisse'           : 'Giulio.Eulisse@cern.ch',
+                                'Elizabeth Sexton-Kennedy' : 'sexton@fnal.gov'},
+                            'DAQ' : {
+                                'Emilio Meschi'            : 'Emilio.Meschi@cern.ch',
+                                'Remi Mommsen'             : 'remigius.mommsen@cern.ch'},
+                            'DQM' : {
+                                'Federico De Guio'         : 'federico.de.guio@cern.ch',
+                                'Suchandra Dutta'          : 'Suchandra.Dutta@cern.ch',
+                                'Elias Ron Alvarez'        : 'elias.ron@cern.ch',
+                                'Fawad Saeed'              : 'fsaeed@cern.ch',
+                                'Muhammad Imran'           : 'muhammad.imran@cern.ch',
+                                'Muhammad Atif Shad Rao'   : 'mrao@cern.ch',
+                                'Marco Rovere'             : 'marco.rovere@cern.ch',
+                                'Adeel-ur-Rehman Zafar'    : 'zafar@mail.cern.ch'},
+                            'Database' : {
+                                'Andreas Pfeiffer'         : 'andreas.pfeiffer@cern.ch',
+                                'Frank Glege'              : 'Frank.Glege@cern.ch',
+                                'Giacomo Govi'             : 'giacomo.govi@cern.ch'},
+                            'Documentation' : {
+                                'Sudhir Malik'             : 'Sudhir.Malik@cern.ch',
+                                'Ali Mehmet Altundag'      : 'ali.mehmet.altundag@cern.ch'},
+                            'Fast Simulation' : {
+                                'Andrea Perrotta'          : 'aperrott@cern.ch',
+                                'Andrea Giammanco'         : 'andrea.giammanco@cern.ch',
+                                'Martin Grunewald'         : 'Martin.Grunewald@cern.ch',
+                                'Mike Hildreth'            : 'mikeh@omega.hep.nd.edu',
+                                'Vladimir Ivanchenko'      : 'Vladimir.Ivantchenko@cern.ch'},
+                            'Full Simulation' : {
+                                'Vladimir Ivantchenko'     : 'civanch@cern.ch',
+                                'Andrea Giammanco'         : 'andrea.giammanco@cern.ch',
+                                'Mike Hildreth'            : 'mikeh@omega.hep.nd.edu',
+                                'Sunanda Banerjee'         : 'Sunanda.banerjee@cern.ch'},
+                            'Generators' : {
+                                'Fabio Cossutti'           : 'fabio.cossutti@ts.infn.it',
+                                'Piergiulio Lenzi'         : 'piergiulio.lenzi@cern.ch',
+                                'Martijn Gosselink'        : 'martijn.gosselink@cern.ch',
+                                'Sanjay Padhi'             : 'Sanjay.Padhi@cern.ch',
+                                'Vitaliano Ciulli'         : 'vitaliano.ciulli@cern.ch'},
+                            'Geometry' : {
+                                'Christopher Jones'        : 'cdj@fnal.gov',
+                                'Mike Hildreth'            : 'mikeh@omega.hep.nd.edu',
+                                'Sunanda Banerjee'         : 'Sunanda.banerjee@cern.ch',
+                                'Ianna Osborne'            : 'Ianna.Osborne@cern.ch'},
+                            'HLT' : {
+                                'Andrea Perrotta'          : 'aperrott@cern.ch',
+                                'Andrea Bocci'             : 'andrea.bocci@cern.ch',
+                                'Martin Grunewald'         : 'Martin.Grunewald@cern.ch'},
+                            'L1' : {
+                                'Vasile Mihai Ghete'       : 'Vasile.Mihai.Ghete@cern.ch',
+                                'Arno Heister'             : 'Arno.Heister@cern.ch',
+                                'Homer Wolfe'              : 'hwolfe@fnal.gov'},
+                            'Operations' : {
+                                'Salavat Abdoulline'       : 'Salavat.Abdoulline@cern.ch',
+                                'Andrea Perrotta'          : 'aperrott@cern.ch',
+                                'David Lange'              : 'David.Lange@cern.ch',
+                                'Fabio Cossutti'           : 'fabio.cossutti@ts.infn.it',
+                                'Fabian Stoeckli'          : 'fabian.stoeckli@cern.ch',
+                                'Elizabeth Sexton-Kennedy' : 'sexton@fnal.gov',
+                                'Mike Hildreth'            : 'mikeh@omega.hep.nd.edu',
+                                'Maurizio Pierini'         : 'maurizio.pierini@cern.ch',
+                                'Francesco Santanastasio'  : 'francesco.santanastasio@cern.ch',
+                                'Salvatore Rappoccio'      : 'rappoccio@gmail.com',
+                                'Sunanda Banerjee'         : 'Sunanda.banerjee@cern.ch',
+                                'Jean-Roch Vlimant'        : 'jean-roch.vlimant@cern.ch'},
+                            'Reconstruction' : {
+                                'David Lange'              : 'David.Lange@cern.ch',
+                                'Slava Krutelyov'          : 'slava77@cern.ch',
+                                'Thomas Speer'             : 'Thomas.Speer@cern.ch',
+                                'Jean-Roch Vlimant'        : 'jean-roch.vlimant@cern.ch'},
+                            'Visualization' : {
+                                'Christopher Jones'        : 'cdj@fnal.gov',
+                                'Dmytro Kovalskyi'         : 'dmytro.kovalskyi@cern.ch',
+                                'Giulio Eulisse'           : 'Giulio.Eulisse@cern.ch',
+                                'Matevz Tadel'             : 'matevz.tadel@cern.ch'}
+                           }
 
 def GetResponsibles(cat):
     res = []
@@ -51,4 +139,21 @@ for i in Data['CMSSW_L2']:
 for i in Data['CMSSW_L1']:
     Data['GITHUB_PAGES'][i] = 'https://github.com/%s' % i
 
-print json.dumps(Data, indent = 1)
+# reorganize CMSSW_CATEGORIES
+for domain in Data['CMSSW_CATEGORIES']:
+    if not domain in Data['CMSSW_MAP'] or not domain in Data['CMSSW_CATEGORIES']: continue
+    Data['CMSSW_CATEGORIES'][Data['CMSSW_MAP'][domain]] = Data['CMSSW_CATEGORIES'][domain]
+    del Data['CMSSW_CATEGORIES'][domain]
+
+tmp = {}
+for domain in Data['CMSSW_CATEGORIES']:
+    tmp[domain] = {}
+    for i in Data['CMSSW_CATEGORIES'][domain]:
+        level = i.split('/')
+        if not len(level) == 2: continue
+        if not level[0] in tmp[domain]: tmp[domain][level[0]] = {}
+        tmp[domain][level[0]][level[1]] = {}
+
+Data['CMSSW_CATEGORIES'] = tmp
+
+print json.dumps(Data, indent = 2)
