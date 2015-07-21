@@ -86,7 +86,7 @@ for i in diff:
     if not i in oldDiff: oldDiff[i] = diff[i]
 
 # updated diff
-out = json.dumps(oldDiff, indent=2)
+out = json.dumps(oldDiff, indent=2, sort_keys=True)
 print out
 fileOps.write(sys.argv[2], out)
 
