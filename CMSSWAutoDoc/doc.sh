@@ -35,6 +35,11 @@ REL=$(echo $RELEASE | cut -f 1 -d ' ')
 # get destination architexture
 ARCH=$(echo $RELEASE | cut -f 2 -d ' ')
 
+# Redirect stdout ( > ) into a named pipe ( >() ) running "tee"
+exec > >(tee -a "${LOG_PATH}/${REL}_${LOG_DATE}.log")
+# capture stderr
+exec 2>&1
+
 echo "## hostname: $(hostname)"
 echo "## user:     $(whoami)"
 echo "## Documenting $REL ($ARCH)..."
@@ -71,8 +76,14 @@ git checkout $REL
 cd $TMP/$REL
 
 ######## HARD CODED DOCKIT SECTION ########
-cp -r /afs/cern.ch/work/c/cmsdoxy/DocKit .
-cd $TMP/$REL/DocKit/scripts
+cd $TMP/$REL/src/Documentation/
+echo "go to: $TMP/$REL/src/Documentation/"
+rm -rf ReferenceManualScripts/
+echo "delete: ReferenceManualScripts"
+cp -r /afs/cern.ch/work/c/cmsdoxy/ReferenceManualScripts .
+checkError "I coldn't copy the directory, /afs/cern.ch/work/c/cmsdoxy/ReferenceManualScripts"
+echo "cp -r /afs/cern.ch/work/c/cmsdoxy/ReferenceManualScripts `pwd`"
+cd $TMP/$REL/src/Documentation/ReferenceManualScripts/scripts
 tcsh generate_reference_manual
 # add check point here!
 ######## HARD CODED DOCKIT SECTION ########
@@ -81,7 +92,7 @@ tcsh generate_reference_manual
 cd $TMP/$REL
 rm -rf biglib/ bin/ cfipython/ config/ include/ lib/ logs/ objs/ python/ src/ test/ tmp/ DocKit/
 gzip -r -S gz doc/
-echo "generated on $(date)" > auto.doc
+echo "generated on $(date)" > auto.doc.2
 
 cd $BASE
 python $BASE/semaphore.py $IOFILE $REL "documented"
@@ -89,7 +100,7 @@ checkError "$IOFILE could not be updated."
 
 # upload ref man files (hardcoded username & machine!)
 echo "## uploading files..."
-scp -r $TMP/$REL cmsdoxy@vocms12.cern.ch:/data/doxygen > /dev/null
+scp -r $TMP/$REL cmsdoxy@cmssdt01.cern.ch:/data/doxygen > /dev/null
 checkError "auto-generated documentation could not be uploaded."
 
 cd $WORK_DIR

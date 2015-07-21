@@ -3,7 +3,7 @@
 # this script generates list of undocumented CMSSW releases.
 
 import os, sys, re
-import tools.url, tools.fileOps
+from lib import url, fileOps
 try: import json
 except ImportError: import simplejson as json
 try: import xml.etree.ElementTree as ET
@@ -15,12 +15,12 @@ if len(sys.argv) < 3:
     sys.exit(1)
 
 # read the config file and parse it
-conf     = json.loads(tools.fileOps.read(sys.argv[1]))
+conf     = json.loads(fileOps.read(sys.argv[1]))
 
 # get list of announced cmssw releases and parse it
-cmssw    = ET.fromstring(tools.url.read(conf['urlRelList']))
+cmssw    = ET.fromstring(url.read(conf['urlRelList']))
 # get list of documented cmssw releases and parse it
-docCMSSW = ET.fromstring(tools.url.read(conf['urlDocList']))
+docCMSSW = ET.fromstring(url.read(conf['urlDocList']))
 
 def isDocNeeded(relName):
     if re.match(conf['pattern'], relName): return True
@@ -75,7 +75,7 @@ for i in cmsswArray:
 
 try:
     # try to read & parse input file which is old diff file
-    oldDiff = json.loads(tools.fileOps.read(sys.argv[2]))
+    oldDiff = json.loads(fileOps.read(sys.argv[2]))
 except IOError:
     # file not found, that means this is the first time
     # that the script has been run
@@ -88,6 +88,6 @@ for i in diff:
 # updated diff
 out = json.dumps(oldDiff, indent=2)
 print out
-tools.fileOps.write(sys.argv[2], out)
+fileOps.write(sys.argv[2], out)
 
 sys.exit(0)

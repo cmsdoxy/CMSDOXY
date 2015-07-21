@@ -1,6 +1,7 @@
 # altunda - ali.mehmet.altundag@cern.ch
 
-import sys, tools.fileOps
+import sys
+from lib import fileOps
 try: import json
 except ImportError: import simplejson as json
 
@@ -10,7 +11,7 @@ if len(sys.argv) < 4:
     sys.exit(1)
 
 # read release list to find one to document.
-relList = json.loads(tools.fileOps.read(sys.argv[1]))
+relList = json.loads(fileOps.read(sys.argv[1]))
 
 print "## documentation status will be updated for %s, %s -> %s" % (sys.argv[2],
       relList[sys.argv[2]]['status'], sys.argv[3])
@@ -18,4 +19,4 @@ print "## documentation status will be updated for %s, %s -> %s" % (sys.argv[2],
 relList[sys.argv[2]]['status'] = sys.argv[3]
 
 # write the updated file
-tools.fileOps.write(sys.argv[1], json.dumps(relList, indent=2))
+fileOps.write(sys.argv[1], json.dumps(relList, indent=2))

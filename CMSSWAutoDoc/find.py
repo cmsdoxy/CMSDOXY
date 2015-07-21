@@ -4,7 +4,8 @@
 # please note that the output of the script should be printed
 # as one line to be parsed by the sheel script.
 
-import sys, tools.fileOps
+import sys
+from lib import fileOps
 try: import json
 except ImportError: import simplejson as json
 
@@ -15,7 +16,7 @@ if len(sys.argv) < 3:
 
 # read release list to find one to document. printFlag must be false,
 # otherwise the parser in the shell script will stop execution.
-rels2Doc = json.loads(tools.fileOps.read(sys.argv[1], printFlag = False))
+rels2Doc = json.loads(fileOps.read(sys.argv[1], printFlag = False))
 
 # get keys to sort them
 keys = rels2Doc.keys()

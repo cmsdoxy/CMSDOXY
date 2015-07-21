@@ -20,11 +20,6 @@ if [ ! -d "$TMP" ]; then
     mkdir $TMP
 fi
 
-# Redirect stdout ( > ) into a named pipe ( >() ) running "tee"
-exec > >(tee -a "${LOG_PATH}/${LOG_DATE}.log")
-# capture stderr
-exec 2>&1
-
 # check for quota
 QUOTA=$(fs lq $BASE)
 QNAME=$(echo $QUOTA | cut -f 7 -d ' ')

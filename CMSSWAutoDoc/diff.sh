@@ -5,6 +5,11 @@ BASE=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 cd $BASE
 source init.sh
 
+# Redirect stdout ( > ) into a named pipe ( >() ) running "tee"
+exec > >(tee -a "${LOG_PATH}/${LOG_DATE}.log")
+# capture stderr
+exec 2>&1
+
 echo "## outputs of the diff tool"
 python diff.py $CONFIG $IOFILE
 
