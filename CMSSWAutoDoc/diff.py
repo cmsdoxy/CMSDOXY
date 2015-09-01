@@ -59,7 +59,7 @@ cmsswDocArray = []
 for projectNode in docCMSSW.findall('project'):
     name =  projectNode.attrib['label']
     # append the release if it is documented (in short, eliminate deprecated releases)
-    if projectNode.attrib['url'] != '':
+    if projectNode.attrib.has_key('url') and projectNode.attrib['url'] != '':
         cmsswDocArray.append(CMSSW(name = name))
 
 diff = {}
